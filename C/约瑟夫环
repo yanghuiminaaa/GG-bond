@@ -1,0 +1,18 @@
+#include<stdio.h>
+#include<stdlib.h>
+int yuesefu(int n,int m)
+{
+	if (n == 1)
+		return 1;
+	else
+	    return (yuesefu(n - 1, m) + m - 1) % n + 1;
+}
+
+int main()
+{
+	int a, b;
+	scanf_s("%d %d", &a, &b);
+	int result = yuesefu(a, b);
+	printf("存活的最后一个人的编号是：%d", result);
+	return 0;
+}
