@@ -1,0 +1,31 @@
+#include<stdio.h>
+int main()
+{ 
+	int x;
+    printf("请输入一个数判定它是不是平方数：");
+    scanf_s("%d", &x);
+	int left = 0, right = x;
+   
+while (left <= right)
+{
+	int mid = (left + right )/ 2;
+	int ping = mid * mid;
+	if (ping == x)
+	{
+		printf("%d是一个平方数\n", x);
+		return 0;
+		
+	}
+	else if (ping< x)
+	{
+		left = mid + 1;
+	}
+	else
+	{
+		right = mid - 1;
+	}
+}
+	
+printf("%d不是一个平方数", x);
+	return 0;
+}
