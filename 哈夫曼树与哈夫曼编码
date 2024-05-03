@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct hnode
+{
+	int weigth;
+	int parent;
+	int lchild, rchild;
+}Hnode, * HT;
+typedef char** HC;
+void select(HT ht, int n, int& s1, int& s2)
+{
+	int temp;
+	int i;
+	s1 = 0; s2 = 0;
+	temp = 9999;
+	for (i = 1; i <= n; i++)
+		if (ht[i].weigth < temp && ht[i].parent == 0)
+		{
+			temp = ht[i].weigth; s1 = i;
+		}
+	temp = 9999;
+	for (i = 1; i <= n; i++)
+		if (ht[i].weigth < temp && ht[i].parent == 0 && i != s1)
+		{
+			temp = ht[i].weigth; s2 = i;
+		}
+}
+void huffmTree(HT& ht, HC& hc, int w[], int n)
+{
+	int s1, s2;
+	int i;
+	int m;
+	HT p;
+	if (n <= 1) return;
+	m = 2 * n - 1;
+	ht = (HT)malloc((m + 1) * sizeof(Hnode));
+	for (p = ht + 1, i = 1; i <= n; i++, p++)
+	{
+		p->weigth = w[i - 1];
+		p->parent = 0;
+		p->lchild = 0;
+		p->rchild = 0;
+	}
+
+	for (p = ht + n + 1, i = n + 1; i <= m; i++, p++)
+	{
+		p->weigth = 0;
+		p->parent = 0;
+		p->lchild = 0;
+		p->rchild = 0;
+	}
+	for (i = n + 1; i <= m; i++)
+	{
+
+		select(ht, i - 1, s1, s2);
+		ht[s1].parent = i;
+		ht[s2].parent = i;
+		ht[i].lchild = s1;
+		ht[i].rchild = s2;
+		ht[i].weigth = ht[s1].weigth + ht[s2].weigth;
+	}
+	printf("\nweigth parent lchild rchild\n");
+	for (i = 1; i <= m; i++)
+		printf("%6d%6d%6d%6d\n", ht[i].weigth, ht[i].parent, ht[i].lchild, ht[i].rchild);
+}
+int main()
+{
+	int i, n, w[20];
+	HT ht;
+	HC hc;
+	scanf_s("%d", &n);
+	for (i = 0; i < n; i++)
+		scanf_s("%d", &w[i]);
+	huffmTree(ht, hc, w, n);
+	return 0;
+}
