@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<cstdio>
+int m,n,p, q, min = 9999999;
+int a[100][100];//1表示空地，2表示障碍物
+int v[100][100];//0表示未访问，1表示访问
+void dfs(int x,int y,int step)
+{
+	if (x == p && y == q)
+	{
+		if (step < min)
+			min = step;
+		return;
+	}
+	if (a[x][y + 1] == 1 && v[x][y + 1] == 0)//顺时针试探右下左上
+	{
+		v[x][y + 1] = 1;
+		dfs(x, y + 1, step + 1);
+		v[x][y + 1] = 0;
+	}
+	if (a[x+1][y] == 1 && v[x+1][y] == 0)//顺时针试探右下左上
+	{
+		v[x+1][y] = 1;
+		dfs(x+1, y, step + 1);
+		v[x+1][y] = 0;
+	}
+	if (a[x][y - 1] == 1 && v[x][y - 1] == 0)//顺时针试探右下左上
+	{
+		v[x][y - 1] = 1;
+		dfs(x, y - 1, step + 1);
+		v[x][y - 1] = 0;
+	}
+	if (a[x - 1][y] == 1 && v[x - 1][y] == 0)//顺时针试探右下左上
+	{
+		v[x - 1][y] = 1;
+		dfs(x - 1, y, step + 1);
+	    v[x - 1][y] = 0;
+	}
+	return;
+}
+/*
+5 4  
+1 1 2 1
+1 1 1 1
+1 1 2 1 
+1 2 1 1
+1 1 1 2
+1 1 4 3
+*/
+int main()
+{
+	int startx, starty;
+	scanf_s("%d%d", &m, &n);
+	for (int i = 1; i <= m; i++)
+		for (int j = 1; j <= n; j++)
+			scanf_s("%d", &a[i][j]);
+	scanf_s("%d%d%d%d", &startx, &starty, &p, &q);
+	v[startx][starty] = 1;
+	dfs(startx, starty, 0);
+	printf("%d", min);
+	return 0;
+}
