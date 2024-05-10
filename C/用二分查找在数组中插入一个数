@@ -1,0 +1,49 @@
+#include <stdio.h>
+void hhh(int arr[], int length, int x)
+{
+    int left = 0, right = length-1;
+    
+    while(left <= right) 
+    {
+        int mid = left + (right - left) / 2;
+        
+        if(arr[mid] == x) 
+        {
+            left = mid;
+            break;
+        } else if(arr[mid] < x) 
+        {
+            left = mid + 1;
+        } 
+        else 
+        {
+            right = mid - 1;
+        }
+    }
+    for(int i=length-1; i>=left; i--) 
+    {
+        arr[i+1] = arr[i];
+    }
+    arr[left] = x;
+}
+
+int main() {
+    int arr[100], num, length;
+    printf("输入数组长度：");
+    scanf_s("%d", &length);
+    printf("输入%d个整数：", length);
+    for (int i = 0; i < length; i++)
+    {
+        scanf_s("%d", &arr[i]);
+    }
+    printf("输入要插入的数字：");
+    scanf_s("%d", &num);
+    hhh(arr, length, num);
+    length++;
+    printf("插入后的数组：");
+    for (int i = 0; i < length; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
