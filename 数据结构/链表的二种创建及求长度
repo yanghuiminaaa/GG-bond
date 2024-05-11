@@ -1,0 +1,103 @@
+//链表的二种创建及求长度
+#include<stdio.h>
+#include<stdlib.h>
+
+#define ok 1
+#define error 0
+#define overflow -2
+#define NULL 0
+#define infeasible -1
+
+//类型定义
+typedef int status;
+typedef int elemtype;
+
+//定义链表的存储结构
+typedef struct Lnode
+{
+	elemtype data;//数据域
+	struct Lnode* next;
+}Lnode,*Linklist;
+
+//逆序创建链表
+void creatlist_L1(Linklist &L,int n)//n为元素个数，L为头结点
+{
+	int i;
+	Linklist p;
+	L = (Linklist)malloc(sizeof(Lnode));//生成头结点
+	L->next = NULL;
+	for (i = n; i > 0; i--)//链头插入法
+	{
+		p = (Linklist)malloc(sizeof(Lnode));
+		scanf_s("%d", &p->data);
+		p->next = L->next;
+		L->next = p;
+	}
+}
+
+//正序创建单链表
+void creatlist_L2(Linklist& L, int n)//n为元素个数，L为头结点
+{
+	int i;
+	Linklist p, q;
+	L = (Linklist)malloc(sizeof(Lnode));//生成头结点
+	q = L;
+	for (i = 0; i < n; i++)//链尾插入法
+	{
+		p = (Linklist)malloc(sizeof(Lnode));
+		scanf_s("%d", &p->data);
+		q->next = p;
+		q = p;
+	}
+	q->next = NULL;
+}
+
+//输出链表
+void print(Linklist L)
+{
+	Linklist p;
+	p = L->next;
+	while (p)
+	{
+		printf("%d", p->data);
+		p = p->next;
+	}
+	printf("\n");
+}
+
+//求链表的长度
+int len(Linklist L)
+{
+	Linklist p;
+	int n = 0;
+	p = L->next;
+	while(p)
+	{
+		n++;
+		p = p->next;
+	}
+	return n;
+}
+
+void main()
+{
+	Linklist L1, L2;
+	int n;
+	//创建一个先进先出单链表
+	printf("请输入单链表元素个数\n");
+	scanf_s("%d", &n);
+	printf("请输入单链表的%d个数据", n);
+	creatlist_L2(L2, n);
+	print(L2);
+	printf("链表的长度为：%d\n", len(L2));
+	printf("\n");
+
+	//创建一个后进先出单链表
+	printf("请输入单链表元素个数\n");
+	scanf_s("%d", &n);
+	printf("请输入单链表的%d个数据\n", n);
+	creatlist_L1(L1, n);
+	print(L1);
+	printf("链表的长度为：%d\n", len(L1));
+	printf("\n");
+}
