@@ -1,0 +1,114 @@
+//单链表的插入和删除
+#include<stdio.h>
+#include<stdlib.h>
+
+#define ok 1
+#define error 0
+#define overflow -2
+#define NULL 0
+#define infeasible -1
+
+//类型定义
+typedef int status;
+typedef int elemtype;
+
+//定义链表的存储结构
+typedef struct Lnode
+{
+	int data;//数据域
+	struct Lnode* next;
+}Lnode,*Linklist;
+
+//正序创建单链表
+void creatlist(Linklist& L, int n)//n为元素个数，L为头结点
+{
+	int i;
+	Linklist p, q;
+	L = (Linklist)malloc(sizeof(Lnode));//生成头结点
+	q = L;
+	for (i = 0; i < n; i++)//链尾插入法
+	{
+		p = (Linklist)malloc(sizeof(Lnode));
+		scanf_s("%d", &p->data);
+		q->next = p;
+		q = p;
+	}
+	q->next = NULL;
+}
+
+//输出链表
+void print(Linklist L)
+{
+	Linklist p;
+	p = L->next;
+	while (p)
+	{
+		printf("%d", p->data);
+		p = p->next;
+	}
+	printf("\n");
+}
+
+//插入操作
+int Listinsert_L(Linklist& L, int i,int e)
+{
+	Linklist p,s;
+	int j;
+	p = L; j = 0;
+	while(p&&j<i-1)
+	{
+		p = p->next; ++j;
+	}
+	if (!p || j > i - 1)
+		return error;
+	s = (Linklist)malloc(sizeof(Lnode));
+	s->data = e;
+	s->next = p->next;
+	p->next = s;
+	return ok;
+}
+
+//单链表的删除操作
+int Listdelete_L(Linklist& L, int i, int& e)
+{
+	Linklist p,q;
+	int j;
+	p = L; j = 0;
+	while (p->next && j < i - 1)
+	{
+		p = p->next;
+		++j;
+	}
+	if (!(p->next) || j > i - 1)
+		return error;
+	q = p->next; p->next = q->next;
+	e = q->data;
+	free(q);
+	return ok;
+}
+
+void main()
+{
+	Linklist L;
+	int n,ins,del,i;
+	printf("请输入单链表元素个数\n");
+	scanf_s("%d", &n);
+	printf("请输入单链表的%d个数据", n);
+	creatlist(L, n);
+	print(L);
+	printf("\n");
+
+	//对链表进行插入操作
+	printf("请输入你要插入的位置和数\n");
+	scanf_s("%d %d", &i, &ins);
+	Listinsert_L(L,i,ins);
+	print(L);
+	printf("\n");
+
+	//对链表进行删除操作
+	printf("请输入你要删除的数的位置\n");
+	scanf_s("%d", &i);
+	Listdelete_L(L, i,del);
+	print(L);
+	printf("\n");
+}
