@@ -1,0 +1,21 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int val = 0;
+	int num = rand() % 100 + 1;//生成一个1-100的随机数
+	cout << num << endl;
+	while (1) {
+		cin >> val;
+		if (val > num)
+			cout << "猜测过大" << endl;
+		else if (val < num)
+			cout << "猜测过小" << endl;
+		else {
+			cout << "猜对了" << endl;
+			break;
+		}
+	}
+	system("pause");
+	return 0;
+}
