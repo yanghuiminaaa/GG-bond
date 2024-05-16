@@ -1,0 +1,13 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main()
+{
+	// 在这里补充你的代码
+	int a;
+	cin >> a;
+	cout << std::showbase << std::oct << a;//oct是八进制
+	cout << std::dec << " " << a;//dec是十进制      //showbase是展示前缀
+	cout << std::showbase << std::hex <<" " << a;//hex是十六进制
+}
