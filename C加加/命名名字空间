@@ -1,0 +1,26 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+//定义名字空间 x，y，定义变量a和函数power(..)
+// 在这里补充你的代码
+namespace x
+{
+	int x;
+	int a;
+}
+
+namespace y
+{
+	int y;
+	int power(int a)
+	{
+		return a * a;
+	}
+}
+int main()
+{
+	cin >> x::a;
+	cout << y::power(x::a) << endl;
+	return 0;
+}
