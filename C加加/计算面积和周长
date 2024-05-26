@@ -1,0 +1,52 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+struct TRIANGLE
+{
+	double a;
+	double b;
+	double c;
+};
+struct RECTANGLE
+{
+	double w;
+	double h;
+};
+//计算三角形面积
+double getTriangleArea(const TRIANGLE *t)
+{
+	double s=(t->a+t->b+t->c)/2;
+	return sqrt(s * (s - t->a) * (s - t->b) * (s-t->c));
+}
+//计算三角形周长
+double getTrianglePerimeter(const TRIANGLE* t)
+{
+	return t->a + t->b + t->c;
+}
+//计算矩形面积
+double getRectangleArea(const RECTANGLE* r)
+{
+	return r->w * r->h;
+}
+//计算矩形周长
+double getRectanglePerimeter(const RECTANGLE* r)
+{
+	return 2 * (r->w + r->h);
+}
+
+int main()
+{
+	TRIANGLE t1;
+	RECTANGLE r1;
+
+	cin >> t1.a >> t1.b >> t1.c;
+	cin >> r1.w >> r1.h;
+
+	cout << fixed << setprecision(2);
+	cout << getTriangleArea(&t1) << endl;
+	cout << getTrianglePerimeter(&t1) << endl;
+	cout << getRectangleArea(&r1) << endl;
+	cout << getRectanglePerimeter(&r1) << endl;
+}
