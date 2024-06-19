@@ -1,0 +1,159 @@
+#include "stdio.h"
+#include "stdlib.h"
+#define Max 100
+
+typedef int sqlist[Max + 1];
+
+void insertsort(sqlist a, int n)
+
+{
+
+    int i, j;
+
+    for (i = 2; i <= n; i++)
+
+    {
+
+        if (a[i] < a[i - 1])
+
+        {
+            a[0] = a[i];
+            for (j = i - 1; a[0] < a[j]; --j)
+                a[j + 1] = a[j];
+
+            a[j + 1] = a[0];
+
+        }
+
+    }
+
+}
+
+void shellsort(sqlist r, int n)
+
+{
+    int i, j, gap, x;
+    gap = n / 2;
+    while (gap > 0)
+    {
+        for (i = gap + 1; i <= n; i++)
+        {
+            j = i - gap;
+            while (j > 0)
+                if (r[j] > r[j + gap])
+                {
+                    x = r[j];
+                    r[j] = r[j + gap];
+                    r[j + gap] = x;
+                    j = j - gap;
+                }
+
+                else j = 0;
+
+        }
+
+        gap = gap / 2;
+
+    }
+
+}
+
+void bubblesort(sqlist r, int n)
+
+{
+
+    int i, j, w;
+
+    for (i = 1; i <= n - 1; i++)
+        for (j = n; j >= i + 1; j--)
+            if (r[j] < r[j - 1])
+            {
+                w = r[j];
+                r[j] = r[j - 1];
+                r[j - 1] = w;
+            }
+
+}
+
+void selectsort(sqlist r, int n)
+
+{
+
+    int i, j, k, temp;
+
+    for (i = 1; i <= n - 1; i++)
+    {
+        k = i;
+        for (j = i + 1; j <= n; j++)
+            if (r[j] < r[k]) k = j;
+        if (k != i)
+        {
+            temp = r[i];
+            r[i] = r[k];
+            r[k] = temp;
+        }
+    }
+
+}
+
+int partion(sqlist a, int n, int low, int high)
+
+{
+    int p;
+    p = a[low];
+    a[0] = a[low];
+    while (low < high)
+    {
+        while (low < high && a[high] >= p)  --high;
+        a[low] = a[high];
+        while (low < high && a[low] <= p) ++low;
+        a[high] = a[low];
+    }
+    a[low] = a[0];
+    return low;
+}
+
+void quicksort(sqlist a, int n, int low, int high)
+{
+    int p;
+    if (low < high)
+    {
+        p = partion(a, n, low, high);
+        quicksort(a, n, low, p - 1);
+        quicksort(a, n, p + 1, high);
+    }
+
+}
+
+void main()
+
+{
+    int i, n;
+    char ch;
+    sqlist a;
+    scanf_s("%d", &n);
+    for (i = 1; i <= n; i++)
+        scanf_s("%d", &a[i]);
+    printf("\n\n");
+    printf("   ┌─────────────┐ \n");
+    printf("   │ 1---插入排序 │ \n");
+    printf("   │ 2---希尔排序 │ \n");
+    printf("   │ 3---冒泡排序 │ \n");
+    printf("   │ 4---选择排序 │ \n");
+    printf("   │ 5---快速排序 │ \n");
+    printf("   │ 请选择(1--5) │ \n");
+    printf("   └─────────────┘ \n");
+    while (1)
+    {
+        scanf_s("%d", &ch);
+        if (ch == 1) { printf("插入排序的结果是：\n"); insertsort(a, n); }
+        else if (ch == 2) { printf("希尔排序的结果是：\n"); shellsort(a, n); }
+        else if (ch == 3) { printf("冒泡排序的结果是：\n"); bubblesort(a, n); }
+        else if (ch == 4) { printf("选择排序的结果是：\n"); selectsort(a, n); }
+        else if (ch == 5) { printf("快速排序的结果是：\n"); quicksort(a, n, 1, n); }
+        else printf("对不起，你选择的参数不对！");
+        for (i = 1; i <= n; i++)
+            printf("%5d", a[i]);
+        printf("\n");
+    }
+}
