@@ -5,7 +5,7 @@ int main()
 {
 	srand((unsigned int)time(NULL));//添加随机种子数，作用利用当前系统时间生成随机数，防止每次随机数都一样
 	int val = 0;
-	int num = rand() % 100 + 1;//生成一个1-100的随机数
+	int num = rand() % 100 + 1;//生成一个1-99+1的随机数
 	//cout << num << endl;
 	while (1) {
 		cin >> val;
