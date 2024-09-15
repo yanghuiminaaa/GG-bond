@@ -1,0 +1,17 @@
+import java.util.Scanner;//导包
+public class text2 {
+public static void main(String[] args) {
+	System.out.println("请输入一个两位数：");
+	Scanner input=new Scanner(System.in);//创建对象
+	int i=input.nextInt();//接收数据
+	if(i<10||i>99)
+	{
+		System.out.println("这不是一个两位数。");
+	}
+	else {
+	int k=i/10+i%10*10;
+	System.out.println(k);//输出数据
+	}
+	input.close();
+    }
+}
