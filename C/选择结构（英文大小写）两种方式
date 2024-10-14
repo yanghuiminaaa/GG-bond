@@ -1,0 +1,40 @@
+#include <stdio.h>  
+#include <ctype.h>  
+
+int main() {
+    char ch;
+    printf("请输入一串英文字母（按Enter结束）：\n");
+
+    // 使用getchar逐字符读取输入，直到遇到换行符（Enter键）  
+    while ((ch = getchar()) != '\n') {
+        if (isalpha(ch)) { // 检查是否是字母  
+            if (isupper(ch)) { // 如果是大写字母  
+                putchar(tolower(ch));
+            }
+            else { // 如果是小写字母  
+                putchar(toupper(ch));
+            }
+        }
+        else { // 不是字母则原样输出（这里其实不会输出，因为要求只输入英文字母）  
+            // 可以选择不处理非字母字符，或者根据需要添加处理逻辑  
+            // putchar(ch); // 如果要输出非字母字符，可以取消注释这行代码  
+        }
+    }
+
+    printf("\n"); // 输出结束后换行  
+    return 0;
+}
+//#include <stdio.h>
+//int main()
+//{
+//    char ch;
+//    while (scanf("%c", &ch) != EOF) {
+//        if (ch >= 'a' && ch <= 'z') {
+//            printf("%c\n", ch - 32);
+//        }
+//        else if (ch >= 'A' && ch <= 'Z') {
+//            printf("%c\n", ch + 32);
+//        }
+//    }
+//    return 0;
+//}
